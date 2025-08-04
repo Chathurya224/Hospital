@@ -1,0 +1,81 @@
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(rgba(17, 76, 117, 0.85), rgba(20, 47, 79, 0.85)), url("https://img.freepik.com/fotos-premium/medico-hace-clic-estructura-iconos-medicos-pantalla-virtual_646443-2302.jpg?w=2000") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+
+    .overlay {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h2, h3 {
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input, button, textarea {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -6px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      margin: 2px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .action-btn.delete {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .action-btn:hover {
+      opacity: 0.8;
+    }

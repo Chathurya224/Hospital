@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Scheduling</title>
+    <link rel="stylesheet" href="D:\uog11 activities\hospital\appoinment\appoinmentStyle.css">
+</head>
+<body>
+  <div class="overlay fade-in">
+    <div class="panel">
+      <h2>📅 Schedule an Appointment</h2>
+
+      <form id="appointmentForm">
+        <input type="text" id="patientName" placeholder="Patient Name" required>
+        <span class="error" id="errorName"></span>
+
+        <input type="date" id="appointmentDate" required>
+        <span class="error" id="errorDate"></span>
+
+        <input type="time" id="appointmentTime" required>
+        <span class="error" id="errorTime"></span>
+
+        <input type="text" id="doctorName" placeholder="Doctor Name" required>
+        <span class="error" id="errorDoctor"></span>
+
+        <button type="submit">Save Appointment</button>
+      </form>
+
+      <h3>📝 Appointments</h3>
+      <table id="appointmentsTable">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Doctor</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("appointmentForm");
+    const tableBody = document.querySelector("#appointmentsTable tbody");
+    let editIndex = -1;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Clear previous errors
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      // Get values
+      const name = document.getElementById("patientName").value.trim();
+      const date = document.getElementById("appointmentDate").value;
+      const time = document.getElementById("appointmentTime").value;
+      const doctor = document.getElementById("doctorName").value.trim();
+
+      const today = new Date().toISOString().split("T")[0];
+
+      // REGEX
+      const nameRegex = /^[A-Za-z\s]{3,50}$/;
+      const doctorRegex = /^(Dr\.\s)?[A-Za-z\s]{3,50}$/;
+
+      let isValid = true;
+
+      if (!nameRegex.test(name)) {
+        document.getElementById("errorName").textContent = "Enter a valid name (letters only)";
+        isValid = false;
+      }
+
+      if (!date || date < today) {
+        document.getElementById("errorDate").textContent = "Enter a valid date (not in the past)";
+        isValid = false;
+      }
+
+      if (!time) {
+        document.getElementById("errorTime").textContent = "Time is required";
+        isValid = false;
+      }
+
+      if (!doctorRegex.test(doctor)) {
+        document.getElementById("errorDoctor").textContent = "Enter a valid doctor name (e.g., Dr. John)";
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      if (editIndex === -1) {
+        addAppointment(name, date, time, doctor);
+      } else {
+        updateAppointment(name, date, time, doctor);
+      }
+
+      form.reset();
+    });
+
+    function addAppointment(name, date, time, doctor) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${date}</td>
+        <td>${time}</td>
+        <td>${doctor}</td>
+        <td>
+          <button class="action-btn" onclick="editAppointment(this)">Edit</button>
+          <button class="action-btn delete" onclick="deleteAppointment(this)">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    }
+
+    function deleteAppointment(btn) {
+      const row = btn.parentElement.parentElement;
+      tableBody.removeChild(row);
+    }
+
+    function editAppointment(btn) {
+      const row = btn.parentElement.parentElement;
+      const cells = row.children;
+      document.getElementById("patientName").value = cells[0].textContent;
+      document.getElementById("appointmentDate").value = cells[1].textContent;
+      document.getElementById("appointmentTime").value = cells[2].textContent;
+      document.getElementById("doctorName").value = cells[3].textContent;
+      editIndex = Array.from(tableBody.children).indexOf(row);
+      form.querySelector("button[type='submit']").textContent = "Update Appointment";
+    }
+
+    function updateAppointment(name, date, time, doctor) {
+      const row = tableBody.children[editIndex];
+      row.children[0].textContent = name;
+      row.children[1].textContent = date;
+      row.children[2].textContent = time;
+      row.children[3].textContent = doctor;
+      editIndex = -1;
+      form.querySelector("button[type='submit']").textContent = "Save Appointment";
+    }
+  </script>
+</body>
+</html>

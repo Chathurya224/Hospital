@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+<link rel="stylesheet" href="D:\uog11 activities\hospital\admin\adminStyle.css">
+</head>
+<body>
+  <div class="overlay">
+    <div class="dashboard">
+      <h1>🛡️ Admin Control Panel</h1>
+
+      <div class="nav-buttons">
+        <button onclick="loadSection('patients')">Manage Patients</button>
+        <button onclick="loadSection('doctors')">Manage Doctors</button>
+        <button onclick="loadSection('appointments')">Manage Appointments</button>
+        <button onclick="loadSection('reports')">View Reports</button>
+      </div>
+
+      <div id="content" class="content-panel fade-in">
+        <p>Select a section to begin managing the hospital system.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function loadSection(section) {
+      const content = document.getElementById("content");
+      content.classList.remove("fade-in");
+      void content.offsetWidth; // reset animation
+      content.classList.add("fade-in");
+
+      switch (section) {
+        case "patients":
+          content.innerHTML = `
+            <h2>👨‍⚕️ Patient Management</h2>
+            <p>Redirecting to patient management page...</p>
+            <button onclick="window.location.href='patient.html'">Go to Patient Page</button>
+          `;
+          break;
+
+        case "doctors":
+          content.innerHTML = `
+            <h2>🩺 Doctor Management</h2>
+            <p>Redirecting to doctor management page...</p>
+            <button onclick="window.location.href='doctor.html'">Go to Doctor Page</button>
+          `;
+          break;
+
+        case "appointments":
+          content.innerHTML = `
+            <h2>📅 Appointment Scheduling</h2>
+            <p>Redirecting to appointment scheduler...</p>
+            <button onclick="window.location.href='appointment.html'">Go to Appointment Page</button>
+          `;
+          break;
+
+        case "reports":
+          content.innerHTML = `
+            <h2>📊 Reports</h2>
+            <p>Sample report data:</p>
+            <ul>
+              <li>Total Patients: 120</li>
+              <li>Total Doctors: 35</li>
+              <li>Appointments Today: 28</li>
+              <li>System Uptime: 99.8%</li>
+            </ul>
+          `;
+          break;
+
+        default:
+          content.innerHTML = "<p>Section not found.</p>";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+ 
+    body {
+      font-family: Arial, sans-serif;
+      background: url("https://img.freepik.com/fotos-premium/medico-hace-clic-estructura-iconos-medicos-pantalla-virtual_646443-2302.jpg?w=2000") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      color: rgb(17, 17, 17);
+    }
+
+    nav {
+      background: rgba(123, 166, 240, 0.8);
+      padding: 1em;
+      display: flex;
+      gap: 2em;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 2em;
+      text-align: center;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2em;
+      margin-top: 2em;
+    }
+
+    .card {
+      background: rgba(111, 152, 235, 0.7);
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background: rgba(112, 164, 242, 0.85);
+    }
+
+    .card h3 {
+      margin: 0.5em 0;
+      font-size: 1.2em;
+    }
+
+    .card p {
+      font-size: 0.9em;
+      color: #edeff3;
+    }
+ 

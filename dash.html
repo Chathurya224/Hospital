@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+ <link rel="stylesheet" href="D:\uog11 activities\hospital\dash\dashStyle.css">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <nav>
+    <a href="about.html">Dashboard</a>
+    <a href="appointments.html">Appointments</a>
+    <a href="patients.html">Patients</a>
+    <a href="doctors.html">Doctors</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <div class="container">
+    <h1>🏥 Hospital Management System</h1>
+    <p>Welcome to the Doctor Dashboard. Choose a section to manage:</p>
+
+    <div class="card-container">
+      <div class="card" onclick="location.href='appointments.html'">
+        <h3>📅 Appointments</h3>
+        <p>Schedule and view patient appointments</p>
+      </div>
+
+      <div class="card" onclick="location.href='patients.html'">
+        <h3>🧍‍♂️ Patients</h3>
+        <p>View and update patient information</p>
+      </div>
+
+      <div class="card" onclick="location.href='doctors.html'">
+        <h3>👨‍⚕️ Doctors</h3>
+        <p>Manage doctor profiles and sessions</p>
+      </div>
+
+      <div class="card" onclick="location.href='admin.html'">
+        <h3>🛠️ Admin</h3>
+        <p>Manage system users and permissions</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Management</title>
+<link rel="stylesheet" href="D:\uog11 activities\hospital\doctor\doctorStyle.css">
+</head>
+<body>
+  <div class="overlay">
+    <div class="panel">
+      <h2>🩺 Doctor Management</h2>
+
+      <form id="doctorForm">
+        <input type="text" id="doctorName" placeholder="Doctor Name" required>
+        <span class="error" id="errorName"></span>
+
+        <input type="text" id="specialization" placeholder="Specialization (e.g., Cardiology)" required>
+        <span class="error" id="errorSpecialization"></span>
+
+        <input type="text" id="contact" placeholder="Contact Number" required>
+        <span class="error" id="errorContact"></span>
+
+        <button type="submit">Save Doctor</button>
+      </form>
+
+      <h3>📋 Doctor List</h3>
+      <table id="doctorsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Contact</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("doctorForm");
+    const tableBody = document.querySelector("#doctorsTable tbody");
+    let editIndex = -1;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      const name = document.getElementById("doctorName").value.trim();
+      const specialization = document.getElementById("specialization").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+
+      const nameRegex = /^[A-Za-z\s]{3,50}$/;
+      const specRegex = /^[A-Za-z\s]{3,50}$/;
+      const contactRegex = /^\d{10}$/;
+
+      let valid = true;
+
+      if (!nameRegex.test(name)) {
+        document.getElementById("errorName").textContent = "Enter a valid name (only letters, min 3 characters)";
+        valid = false;
+      }
+
+      if (!specRegex.test(specialization)) {
+        document.getElementById("errorSpecialization").textContent = "Enter a valid specialization";
+        valid = false;
+      }
+
+      if (!contactRegex.test(contact)) {
+        document.getElementById("errorContact").textContent = "Enter a valid 10-digit contact number";
+        valid = false;
+      }
+
+      if (!valid) {
+        alert("Please correct the highlighted fields.");
+        return;
+      }
+
+      if (editIndex === -1) {
+        addDoctor(name, specialization, contact);
+      } else {
+        updateDoctor(name, specialization, contact);
+      }
+
+      form.reset();
+    });
+
+    function addDoctor(name, specialization, contact) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${specialization}</td>
+        <td>${contact}</td>
+        <td>
+          <button class="action-btn" onclick="editDoctor(this)">Edit</button>
+          <button class="action-btn delete" onclick="deleteDoctor(this)">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    }
+
+    function deleteDoctor(btn) {
+      const row = btn.parentElement.parentElement;
+      if (confirm("Are you sure you want to delete this doctor?")) {
+        tableBody.removeChild(row);
+      }
+    }
+
+    function editDoctor(btn) {
+      const row = btn.parentElement.parentElement;
+      const cells = row.children;
+      document.getElementById("doctorName").value = cells[0].textContent;
+      document.getElementById("specialization").value = cells[1].textContent;
+      document.getElementById("contact").value = cells[2].textContent;
+      editIndex = Array.from(tableBody.children).indexOf(row);
+      form.querySelector("button[type='submit']").textContent = "Update Doctor";
+    }
+
+    function updateDoctor(name, specialization, contact) {
+      const row = tableBody.children[editIndex];
+      row.children[0].textContent = name;
+      row.children[1].textContent = specialization;
+      row.children[2].textContent = contact;
+      editIndex = -1;
+      form.querySelector("button[type='submit']").textContent = "Save Doctor";
+    }
+  </script>
+</body>
+</html>

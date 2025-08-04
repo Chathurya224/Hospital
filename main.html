@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hospital Management - Admin Interface</title>
+<link rel="stylesheet" href="D:\uog11 activities\hospital\main\mainStyle.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a onclick="navigate('dashboard')">Dashboard</a>
+    <a onclick="navigate('appointments')">Appointments</a>
+    <a onclick="navigate('patients')">Patients</a>
+    <a onclick="navigate('doctors')">Doctors</a>
+    <a onclick="navigate('admin')">Admin</a>
+  </nav>
+
+  <!-- Main Content Container -->
+  <div id="mainContent" class="container fade-in">
+    <h1>🏥 Hospital Management System</h1>
+    <p>Welcome to the Admin Interface. Choose a module to proceed.</p>
+  </div>
+
+  <!-- JavaScript for routing and validation -->
+  <script>
+    // Navigation handler
+    function navigate(page) {
+      const content = document.getElementById("mainContent");
+      content.classList.remove("fade-in");
+      void content.offsetWidth;
+      content.classList.add("fade-in");
+
+      // Common confirmation and form rendering
+      const showFormWithValidation = (title, formHTML) => {
+        if (confirm(`Redirecting to ${title} form...`)) {
+          content.innerHTML = formHTML;
+        }
+      };
+
+      switch (page) {
+        case "dashboard":
+          content.innerHTML = `
+            <h1>🏥 Hospital Management System</h1>
+            <p>Welcome to the Admin Interface. Choose a module to proceed.</p>
+            <div class="card" onclick="navigate('appointments')">
+              <h3>📅 Appointments</h3>
+              <p>Schedule and view patient appointments</p>
+            </div>
+            <div class="card" onclick="navigate('patients')">
+              <h3>🧍‍♂️ Patients</h3>
+              <p>View and update patient information</p>
+            </div>
+            <div class="card" onclick="navigate('doctors')">
+              <h3>👨‍⚕️ Doctors</h3>
+              <p>Manage doctor profiles and sessions</p>
+            </div>
+            <div class="card" onclick="navigate('admin')">
+              <h3>🛠️ Admin</h3>
+              <p>Manage system users and permissions</p>
+            </div>
+          `;
+          break;
+
+        case "appointments":
+          showFormWithValidation("Appointment", `
+            <h2>📅 Appointment Form</h2>
+            <form onsubmit="return validateAppointmentForm()">
+              <input type="text" id="apptPatient" placeholder="🧍 Patient Name" />
+              <div class="error" id="errorApptName"></div>
+
+              <input type="date" id="apptDate" />
+              <div class="error" id="errorApptDate"></div>
+
+              <input type="time" id="apptTime" />
+              <div class="error" id="errorApptTime"></div>
+
+              <button type="submit">Submit</button>
+            </form>
+          `);
+          break;
+
+        case "patients":
+          showFormWithValidation("Patient", `
+            <h2>🧍‍♂️ Patient Registration</h2>
+            <form onsubmit="return validatePatientForm()">
+              <input type="text" id="patientName" placeholder="👤 Full Name" />
+              <div class="error" id="errorPatientName"></div>
+
+              <input type="email" id="patientEmail" placeholder="📧 Email" />
+              <div class="error" id="errorPatientEmail"></div>
+
+              <input type="text" id="patientContact" placeholder="📱 Contact Number" />
+              <div class="error" id="errorPatientContact"></div>
+
+              <button type="submit">Register</button>
+            </form>
+          `);
+          break;
+
+        case "doctors":
+          showFormWithValidation("Doctor", `
+            <h2>👨‍⚕️ Doctor Profile</h2>
+            <form onsubmit="return validateDoctorForm()">
+              <input type="text" id="doctorName" placeholder="👨‍⚕️ Name (e.g., Dr. John)" />
+              <div class="error" id="errorDoctorName"></div>
+
+              <input type="text" id="doctorSpecial" placeholder="💼 Specialization" />
+              <div class="error" id="errorDoctorSpecial"></div>
+
+              <button type="submit">Save</button>
+            </form>
+          `);
+          break;
+
+        case "admin":
+          showFormWithValidation("Admin Login", `
+            <h2>🛠️ Admin Login</h2>
+            <form onsubmit="return validateAdminLogin()">
+              <input type="text" id="adminUser" placeholder="👤 Username" />
+              <div class="error" id="errorAdminUser"></div>
+
+              <input type="password" id="adminPass" placeholder="🔒 Password" />
+              <div class="error" id="errorAdminPass"></div>
+
+              <button type="submit">Login</button>
+            </form>
+          `);
+          break;
+      }
+    }
+
+    // Appointment Form Validation
+    function validateAppointmentForm() {
+      let valid = true;
+      const name = document.getElementById("apptPatient").value.trim();
+      const date = document.getElementById("apptDate").value;
+      const time = document.getElementById("apptTime").value;
+
+      document.getElementById("errorApptName").textContent = !/^[A-Za-z ]{3,}$/.test(name) ? (valid = false, "Enter a valid name.") : "";
+      document.getElementById("errorApptDate").textContent = !date ? (valid = false, "Select a valid date.") : "";
+      document.getElementById("errorApptTime").textContent = !time ? (valid = false, "Select a valid time.") : "";
+
+      return valid;
+    }
+
+    // Patient Form Validation
+    function validatePatientForm() {
+      let valid = true;
+      const name = document.getElementById("patientName").value.trim();
+      const email = document.getElementById("patientEmail").value.trim();
+      const contact = document.getElementById("patientContact").value.trim();
+
+      document.getElementById("errorPatientName").textContent = !/^[A-Za-z ]{3,}$/.test(name) ? (valid = false, "Invalid full name.") : "";
+      document.getElementById("errorPatientEmail").textContent = !/^[^@]+@[^@]+\.[^@]+$/.test(email) ? (valid = false, "Invalid email.") : "";
+      document.getElementById("errorPatientContact").textContent = !/^\d{10}$/.test(contact) ? (valid = false, "10-digit number required.") : "";
+
+      return valid;
+    }
+
+    // Doctor Form Validation
+    function validateDoctorForm() {
+      let valid = true;
+      const name = document.getElementById("doctorName").value.trim();
+      const special = document.getElementById("doctorSpecial").value.trim();
+
+      document.getElementById("errorDoctorName").textContent = !/^Dr\.\s?[A-Za-z ]{3,}$/.test(name) ? (valid = false, "Use 'Dr. John' format.") : "";
+      document.getElementById("errorDoctorSpecial").textContent = !special ? (valid = false, "Specialization required.") : "";
+
+      return valid;
+    }
+
+    // Admin Login Validation
+    function validateAdminLogin() {
+      let valid = true;
+      const user = document.getElementById("adminUser").value.trim();
+      const pass = document.getElementById("adminPass").value.trim();
+
+      document.getElementById("errorAdminUser").textContent = !/^[a-zA-Z0-9]{4,}$/.test(user) ? (valid = false, "Min 4 alphanumeric chars.") : "";
+      document.getElementById("errorAdminPass").textContent = !/^.{4,}$/.test(pass) ? (valid = false, "Min 4 characters.") : "";
+
+      return valid;
+    }
+  </script>
+</body>
+</html>
+
+  <script src="D:\uog11 activities\hospital\main\main.JS"></script>
+</body>
+</html>

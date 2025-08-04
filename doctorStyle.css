@@ -1,0 +1,91 @@
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("https://img.freepik.com/fotos-premium/medico-hace-clic-estructura-iconos-medicos-pantalla-virtual_646443-2302.jpg?w=2000"), linear-gradient(to right, #000046, #1CB5E0);
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      padding: 30px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .panel {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h2, h3 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    form input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .error {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      background-color: #4caf50;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #43a047;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .action-btn {
+      background-color: #2196f3;
+      margin: 0 5px;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .delete {
+      background-color: #f44336;
+    }
+
+    .action-btn:hover {
+      opacity: 0.9;
+    }
